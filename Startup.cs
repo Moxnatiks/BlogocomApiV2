@@ -70,6 +70,7 @@ namespace BlogocomApiV2
                 .AddGraphQLServer()
                 .AddQueryType(q => q.Name("Query"))
                     .AddTypeExtension<UserQueries>()
+                    .AddTypeExtension<MessageQueries>()
                 .AddMutationType(m => m.Name("Mutation"))
                     .AddTypeExtension<UserMutations>()
                     .AddTypeExtension<ChatMutations>()

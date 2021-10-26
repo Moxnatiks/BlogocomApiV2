@@ -11,38 +11,20 @@ namespace BlogocomApiV2.Repository
 {
     public class ChatRepository : IChat
     {
-        /*private readonly ApiDbContext DB;
+        private readonly ApiDbContext DB;
         public ChatRepository(ApiDbContext apiDbContext)
         {
             DB = apiDbContext;
         }
-
-        async public Task<Chat> CreateChatAsync(Chat chat)
+        public bool CheckUserAccessToChat(long userId, long chatId)
         {
-            DB.Chats.AddAsync(chat);
-            await context.SaveChangesAsync(cancellationToken);
+            long[] idsUsers = DB.UserChats.Where(u => u.UserId == userId).Select(i => i.ChatId).ToArray();
+            long? index = Array.IndexOf(idsUsers, chatId);
+
+            if (index != null) return true;
+            else return false;
+
+
         }
-
-        public Chat? FindPrivateChat(long firstUserId, long secondUserId)
-        {
-            User user1 = DB.Users.FirstOrDefault(u => u.Id == firstUserId);
-            User user2 = DB.Users.FirstOrDefault(u => u.Id == secondUserId);
-            if (user1 != null && user2 != null)
-            {
-                long[] ids1 = DB.UserChats.Where(u => u.UserId == firstUserId).Select(i => i.ChatId).ToArray();
-                long[] ids2 = DB.UserChats.Where(u => u.UserId == secondUserId).Select(i => i.ChatId).ToArray();
-
-                long []  chatIds = ids1.Intersect(ids2).ToArray();
-
-                if (chatIds != null)
-                {
-                    Chat? chat = DB.Chats.FirstOrDefault(c => c.Id == chatIds[0]);
-                    return chat;
-                }
-                else return null;
-            } 
-            else return null;
-            
-        }*/
     }
 }

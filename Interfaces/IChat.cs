@@ -8,7 +8,6 @@ namespace BlogocomApiV2.Interfaces
 {
     public interface IChat
     {
-       /* Chat? FindPrivateChat(long firstUserId, long secondUserId);
-        Chat CreateChatAsync(Chat chat);*/
+        bool CheckUserAccessToChat(long userId, long chatId);
     }
 }

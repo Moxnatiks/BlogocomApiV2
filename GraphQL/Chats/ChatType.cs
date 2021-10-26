@@ -21,8 +21,14 @@ namespace BlogocomApiV2.GraphQL.Chats
                 .Name("messages")
                 .ResolveWith<Resolvers>(c => c.GetMessages(default!, default!))
                 .UseDbContext<ApiDbContext>()
-                .Description("Last 100 sms of chat.");
+                .Description("Last 25 sms of chat.");
 
+            descriptor
+                .Field("lastMessage")
+                .Name("lastMessage")
+                .ResolveWith<Resolvers>(c => c.GetLastMessages(default!, default!))
+                .UseDbContext<ApiDbContext>()
+                .Description("Get the last chat message.");
 
         }
 
@@ -30,7 +36,12 @@ namespace BlogocomApiV2.GraphQL.Chats
         {
             public IQueryable<Message> GetMessages(Chat chat, [ScopedService] ApiDbContext DB)
             {
-                return DB.Messages.Where(i => i.ChatId == chat.Id).OrderByDescending(d => d.CreatedDate).Take(100);
+                return DB.Messages.Where(i => i.ChatId == chat.Id).OrderByDescending(d => d.CreatedDate).Take(25);
+            }
+
+            public Message? GetLastMessages (Chat chat, [ScopedService] ApiDbContext DB)
+            {
+                return DB.Messages.Where(c => c.ChatId == chat.Id).OrderByDescending(c => c.CreatedDate).FirstOrDefault();
             }
 
         }
