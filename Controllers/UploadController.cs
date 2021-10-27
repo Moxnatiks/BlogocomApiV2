@@ -109,9 +109,9 @@ namespace BlogocomApiV2.Controllers
                     Size = file.Length,
                     Type =  extension.Replace(".", ""),
                     //Local
-                    WebPath = "https://localhost:5001/api/picture/download/" + ticks,
+                    //WebPath = "https://localhost:5001/api/picture/download/" + ticks,
                     //Production
-                    //WebPath = "https://blogocomapiv2.azurewebsites.net" + ticks
+                    WebPath = "https://blogocomapiv2.azurewebsites.net" + ticks
 
                     
                 };
