@@ -22,6 +22,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
@@ -157,6 +158,33 @@ namespace BlogocomApiV2
                        .AddAuthenticationSchemes("Firebase")
                        .Build());
                });
+
+            //File TEst
+            services.AddSwaggerGen(
+              options =>
+              {
+                  options.SwaggerDoc("v1", new OpenApiInfo()
+                  {
+                      Title = "Learn Smart Coding - Demo",
+                      Version = "V1",
+                      Description = "",
+                      TermsOfService = new System.Uri("https://karthiktechblog.com/copyright"),
+                      Contact = new OpenApiContact()
+                      {
+                          Name = "Learn Smart Coding",
+                          Email = "karthiktechblog.com@gmail.com",
+                          Url = new System.Uri("http://www.karthiktechblog.com")
+                      },
+                      License = new OpenApiLicense
+                      {
+                          Name = "Use under LICX",
+                          Url = new System.Uri("https://karthiktechblog.com/copyright"),
+                      }
+                  });
+              }
+          );
+            services.AddControllers();
+            //
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -165,37 +193,26 @@ namespace BlogocomApiV2
             {
                 app.UseDeveloperExceptionPage();
             }
+            //file test
+            app.UseSwagger();
 
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("v1/swagger.json", "Karthiktechblog Restaurant API V1");
+            });
+            //
             app.UseAuthentication();
             app.UseAuthorization();
 
-           /* app.Use(async (context, next) =>
-            {
-                // Use this if there are multiple authentication schemes
-                var authResult = await context.AuthenticateAsync(JwtBearerDefaults.AuthenticationScheme);
-                if (authResult.Succeeded && authResult.Principal.Identity.IsAuthenticated)
-                {
-                    await next();
-                }
-                else if (authResult.Failure != null)
-                {
-                    // Rethrow, let the exception page handle it.
-                    ExceptionDispatchInfo.Capture(authResult.Failure).Throw();
-                }
-                else
-                {
-                    await context.ChallengeAsync();
-                }
-            });*/
-
-            // My exceptions
-            //app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseWebSockets();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
+                //test file
+                endpoints.MapControllers();
+                //
                 endpoints.MapGraphQL();
             });
 
