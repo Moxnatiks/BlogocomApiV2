@@ -1,4 +1,5 @@
-﻿using BlogocomApiV2.Models;
+﻿using BlogocomApiV2.Interfaces;
+using BlogocomApiV2.Models;
 using BlogocomApiV2.Services;
 using BlogocomApiV2.Settings;
 using HotChocolate;
@@ -19,19 +20,19 @@ namespace BlogocomApiV2.GraphQL.Messages
     {
         [Authorize]
         [UseDbContext(typeof(ApiDbContext))]
-        [GraphQLDescription("Create message")]
+        [GraphQLDescription("Create message.")]
         public async Task<Message> CreateMessageAsync(
                 AddMessageInput input,
                 [ScopedService] ApiDbContext DB,
                 [Service] ITopicEventSender eventSender,
                 [Service] UserService _userService,
+                [Service] IChat _chatRepository,
                 CancellationToken cancellationToken)
         {
-            long userId = _userService.GetUserId();
-            long[] idsUsers = DB.UserChats.Where(u => u.UserId == userId).Select(i => i.ChatId).ToArray();
 
-            long? index = Array.IndexOf(idsUsers, input.ChatId);
-            if (index == null) throw new ArgumentException("Invalid id chat!");
+            long userId = _userService.GetUserId();
+
+            if (!_chatRepository.CheckUserAccessToChat(_userService.GetUserId(), input.ChatId)) throw new ArgumentException("NO access!");
 
             Message newMessage = new Message
             {
@@ -56,6 +57,42 @@ namespace BlogocomApiV2.GraphQL.Messages
             }
 
             return newMessage;
+        }
+
+        [Authorize]
+        [UseDbContext(typeof(ApiDbContext))]
+        [GraphQLDescription("Update message.")]
+        public async Task<Message> UpdateMessageAsync (
+            UpdateMessageInput input,
+            [ScopedService] ApiDbContext DB,
+            [Service] UserService _userService,
+            [Service] IMessage _messageRepository,
+            [Service] ITopicEventSender eventSender,
+            CancellationToken cancellationToken
+            )
+        {
+            long userId = _userService.GetUserId();
+            if (!_messageRepository.CheckUserAccessToMessage(userId, input.messageId)) throw new ArgumentException("No access!");
+
+            Message existMessage = _messageRepository.GetMessageById(input.messageId);
+
+            existMessage.Content = input.content;
+
+            DB.Messages.Update(existMessage);
+            await DB.SaveChangesAsync(cancellationToken);
+
+            long[] userIds = DB.UserChats.Where(r => r.ChatId == existMessage.ChatId).Select(u => u.UserId).ToArray();
+
+            foreach (long el in userIds)
+            {
+                if (el == userId) continue;
+
+                await eventSender.SendAsync(
+                "OnUpdatedMessage_" + el,
+                existMessage, cancellationToken);
+            }
+
+            return existMessage;
         }
     }
 }

@@ -30,5 +30,20 @@ namespace BlogocomApiV2.GraphQL.Messages
             }
             else throw new ArgumentException("Invalid token!");
         }
+
+        [SubscribeAndResolve]
+        public async ValueTask<ISourceStream<Message>> OnUpdatedMessage(
+           string token,
+           [Service] ITopicEventReceiver eventReceiver,
+           [Service] UserService _userService,
+           CancellationToken cancellationToken)
+        {
+            if (_userService.ValidateToken(token))
+            {
+                var id = _userService.GetUserId();
+                return await eventReceiver.SubscribeAsync<string, Message>("OnUpdatedMessage_" + _userService.GetUserId(), cancellationToken);
+            }
+            else throw new ArgumentException("Invalid token!");
+        }
     }
 }
