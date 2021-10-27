@@ -3,15 +3,17 @@ using System;
 using BlogocomApiV2.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BlogocomApiV2.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    partial class ApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211027145020_AddPicture")]
+    partial class AddPicture
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,49 +147,36 @@ namespace BlogocomApiV2.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTimeOffset(new DateTime(2021, 10, 27, 18, 20, 27, 925, DateTimeKind.Unspecified).AddTicks(8950), new TimeSpan(0, 3, 0, 0, 0)),
-                            Email = "Lou56@gmail.com",
-                            FirstName = "Helene",
+                            CreatedDate = new DateTimeOffset(new DateTime(2021, 10, 27, 17, 50, 19, 171, DateTimeKind.Unspecified).AddTicks(9325), new TimeSpan(0, 3, 0, 0, 0)),
+                            Email = "Josianne_Davis45@yahoo.com",
+                            FirstName = "Taylor",
                             IsAccess = true,
-                            Password = "lH31c03BWkO4E1bdM7iXBJ/dX6X7vqpEa5jVRrAmBQU=",
+                            Password = "qSbCg9Osolw54NC6gZb5KXHtV9YNuYCa1NCxpMQURmM=",
                             Phone = "+380994444333",
-                            StoredSalt = new byte[] { 66, 27, 48, 135, 126, 197, 147, 180, 22, 135, 245, 186, 236, 21, 161, 213 }
+                            StoredSalt = new byte[] { 223, 3, 251, 135, 71, 109, 146, 5, 187, 105, 213, 9, 243, 45, 244, 43 }
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedDate = new DateTimeOffset(new DateTime(2021, 10, 27, 18, 20, 27, 937, DateTimeKind.Unspecified).AddTicks(1548), new TimeSpan(0, 3, 0, 0, 0)),
-                            Email = "Laverna_Kerluke99@hotmail.com",
-                            FirstName = "Roger",
+                            CreatedDate = new DateTimeOffset(new DateTime(2021, 10, 27, 17, 50, 19, 186, DateTimeKind.Unspecified).AddTicks(5941), new TimeSpan(0, 3, 0, 0, 0)),
+                            Email = "Blair_Zieme@yahoo.com",
+                            FirstName = "Mercedes",
                             IsAccess = true,
-                            Password = "lH31c03BWkO4E1bdM7iXBJ/dX6X7vqpEa5jVRrAmBQU=",
+                            Password = "qSbCg9Osolw54NC6gZb5KXHtV9YNuYCa1NCxpMQURmM=",
                             Phone = "+380994444222",
-                            StoredSalt = new byte[] { 66, 27, 48, 135, 126, 197, 147, 180, 22, 135, 245, 186, 236, 21, 161, 213 }
+                            StoredSalt = new byte[] { 223, 3, 251, 135, 71, 109, 146, 5, 187, 105, 213, 9, 243, 45, 244, 43 }
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedDate = new DateTimeOffset(new DateTime(2021, 10, 27, 18, 20, 27, 944, DateTimeKind.Unspecified).AddTicks(5491), new TimeSpan(0, 3, 0, 0, 0)),
-                            Email = "Kiarra.Morissette71@hotmail.com",
-                            FirstName = "Kip",
+                            CreatedDate = new DateTimeOffset(new DateTime(2021, 10, 27, 17, 50, 19, 194, DateTimeKind.Unspecified).AddTicks(4050), new TimeSpan(0, 3, 0, 0, 0)),
+                            Email = "Robb64@gmail.com",
+                            FirstName = "D'angelo",
                             IsAccess = true,
-                            Password = "lH31c03BWkO4E1bdM7iXBJ/dX6X7vqpEa5jVRrAmBQU=",
+                            Password = "qSbCg9Osolw54NC6gZb5KXHtV9YNuYCa1NCxpMQURmM=",
                             Phone = "+380994444111",
-                            StoredSalt = new byte[] { 66, 27, 48, 135, 126, 197, 147, 180, 22, 135, 245, 186, 236, 21, 161, 213 }
+                            StoredSalt = new byte[] { 223, 3, 251, 135, 71, 109, 146, 5, 187, 105, 213, 9, 243, 45, 244, 43 }
                         });
-                });
-
-            modelBuilder.Entity("BlogocomApiV2.Models.UserAvatar", b =>
-                {
-                    b.Property<long>("PictureId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("PictureId", "UserId");
-
-                    b.ToTable("UserAvatars");
                 });
 
             modelBuilder.Entity("BlogocomApiV2.Models.UserChat", b =>

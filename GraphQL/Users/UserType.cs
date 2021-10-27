@@ -32,6 +32,13 @@ namespace BlogocomApiV2.GraphQL.Users
                 .ResolveWith<Resolvers>(c => c.GetChats(default!, default!))
                 .UseDbContext<ApiDbContext>()
                 .Description("The chats in which the user.");
+
+            descriptor
+               .Field("avatars")
+               .Name("avatars")
+               .ResolveWith<Resolvers>(c => c.GetAvatars(default!, default!))
+               .UseDbContext<ApiDbContext>()
+               .Description("Get user avatars.");
         }
 
         private class Resolvers
@@ -43,6 +50,15 @@ namespace BlogocomApiV2.GraphQL.Users
                 IQueryable<Chat> chats = DB.Chats.AsQueryable().Where(a => ids.Contains(a.Id));
 
                 return chats;
+            }
+
+            public IQueryable<Picture> GetAvatars(User user, [ScopedService] ApiDbContext DB)
+            {
+                IEnumerable<long> ids = DB.UserAvatars.Where(r => r.UserId == user.Id).Select(r => r.PictureId);
+
+                IQueryable<Picture> pics = DB.Pictures.AsQueryable().Where(a => ids.Contains(a.Id));
+
+                return pics;
             }
         }
     }

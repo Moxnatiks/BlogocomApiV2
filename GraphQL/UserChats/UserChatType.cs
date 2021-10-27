@@ -35,6 +35,8 @@ namespace BlogocomApiV2.GraphQL.UserChats
                .ResolveWith<Resolvers>(c => c.GetUser(default!, default!))
                .UseDbContext<ApiDbContext>()
                .Description("Users of which users are members .");
+
+
         }
 
         private class Resolvers

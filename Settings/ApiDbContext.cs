@@ -12,6 +12,9 @@ namespace BlogocomApiV2.Settings
         public DbSet<Chat> Chats { get; set; }
         public DbSet<UserChat> UserChats { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
+        public DbSet<UserAvatar> UserAvatars { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -19,6 +22,7 @@ namespace BlogocomApiV2.Settings
             modelBuilder.ApplyConfiguration(new ChatConfig());
             modelBuilder.ApplyConfiguration(new UserChatConfig());
             modelBuilder.ApplyConfiguration(new MessageConfig());
+            modelBuilder.ApplyConfiguration(new UserAvatarConfig());
 
 
             base.OnModelCreating(modelBuilder);

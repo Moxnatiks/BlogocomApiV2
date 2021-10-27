@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BlogocomApiV2.Models;
+using BlogocomApiV2.Settings;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
@@ -7,28 +10,43 @@ using System.Threading.Tasks;
 
 namespace BlogocomApiV2.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/picture")]
     [ApiController]
+//    [Authorize]
     public class UploadController : ControllerBase
     {
+        private readonly ApiDbContext DB;
+        public UploadController (ApiDbContext context)
+        {
+            DB = context;
+        }
+
         [HttpPost]
         [Route("upload")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UploadFile(
+        public async Task<ActionResult<Picture>> UploadFile(
          IFormFile file,
          CancellationToken cancellationToken)
         {
             if (CheckIfExcelFile(file))
             {
-                await WriteFile(file);
+                Picture pic = await WriteFile(file);
+                if (pic != null)
+                {
+                    DB.Pictures.Add(pic);
+                    await DB.SaveChangesAsync();
+                    return Ok(pic);
+                }
+                else return BadRequest(new { message = "Error!" });
+
             }
             else
             {
                 return BadRequest(new { message = "Invalid file extension" });
             }
 
-            return Ok();
+           
         }
 
         [HttpGet("download/{id:long}")]
@@ -48,17 +66,26 @@ namespace BlogocomApiV2.Controllers
         private bool CheckIfExcelFile(IFormFile file)
         {
             var extension = "." + file.FileName.Split('.')[file.FileName.Split('.').Length - 1];
-            return (extension == ".xlsx" || extension == ".jpg"); // Change the extension based on your need
+            return (extension == ".tiff" || 
+                    extension == ".jpg" ||
+                    extension == ".raw" ||
+                    extension == ".jpeg" ||
+                    extension == ".bmp" ||
+                    extension == ".gif" ||
+                    extension == ".png"
+                    ); // Change the extension based on your need
         }
 
-        private async Task<bool> WriteFile(IFormFile file)
+        private async Task<Picture> WriteFile(IFormFile file)
         {
             bool isSaveSuccess = false;
             string fileName;
+            Picture? pic = null;
             try
             {
                 var extension = "." + file.FileName.Split('.')[file.FileName.Split('.').Length - 1];
-                fileName = DateTime.Now.Ticks + extension; //Create a new Name for the file due to security reasons.
+                var ticks = DateTime.Now.Ticks;
+                fileName = ticks + extension; //Create a new Name for the file due to security reasons.
 
                 var pathBuilt = Path.Combine(Directory.GetCurrentDirectory(), "Upload\\files");
 
@@ -75,6 +102,20 @@ namespace BlogocomApiV2.Controllers
                     await file.CopyToAsync(stream);
                 }
 
+                pic = new Picture
+                {
+                    OriginalName = file.FileName,
+                    UniqueName = fileName,
+                    Size = file.Length,
+                    Type =  extension.Replace(".", ""),
+                    //Local
+                    WebPath = "https://localhost:5001/api/picture/download/" + ticks,
+                    //Production
+                    //WebPath = "https://blogocomapiv2.azurewebsites.net" + ticks
+
+                    
+                };
+
                 isSaveSuccess = true;
             }
             catch (Exception e)
@@ -82,7 +123,7 @@ namespace BlogocomApiV2.Controllers
                 //log error
             }
 
-            return isSaveSuccess;
+            return pic;
         }
     }
 }
