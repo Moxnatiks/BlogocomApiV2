@@ -21,6 +21,11 @@ namespace BlogocomApiV2
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    //limit Mb
+                    webBuilder.UseKestrel(options =>
+                    {
+                        options.Limits.MaxRequestBodySize = null; // or a given limit
+                    });
                 });
     }
 }

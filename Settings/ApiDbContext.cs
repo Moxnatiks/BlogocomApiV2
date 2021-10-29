@@ -12,7 +12,7 @@ namespace BlogocomApiV2.Settings
         public DbSet<Chat> Chats { get; set; }
         public DbSet<UserChat> UserChats { get; set; }
         public DbSet<Message> Messages { get; set; }
-        public DbSet<Picture> Pictures { get; set; }
+        public DbSet<File> Pictures { get; set; }
         public DbSet<UserAvatar> UserAvatars { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -29,7 +29,7 @@ namespace BlogocomApiV2.Migrations
                     b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<bool>("IsPrivate")
+                    b.Property<bool?>("IsPrivate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
                         .HasDefaultValue(true);
@@ -74,38 +74,6 @@ namespace BlogocomApiV2.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("BlogocomApiV2.Models.Picture", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTimeOffset>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("OriginalName")
-                        .HasColumnType("text");
-
-                    b.Property<long>("Size")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Type")
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)");
-
-                    b.Property<string>("UniqueName")
-                        .HasMaxLength(25)
-                        .HasColumnType("character varying(25)");
-
-                    b.Property<string>("WebPath")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pictures");
-                });
-
             modelBuilder.Entity("BlogocomApiV2.Models.User", b =>
                 {
                     b.Property<long>("Id")
@@ -145,49 +113,36 @@ namespace BlogocomApiV2.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTimeOffset(new DateTime(2021, 10, 27, 18, 20, 27, 925, DateTimeKind.Unspecified).AddTicks(8950), new TimeSpan(0, 3, 0, 0, 0)),
-                            Email = "Lou56@gmail.com",
-                            FirstName = "Helene",
+                            CreatedDate = new DateTimeOffset(new DateTime(2021, 10, 22, 14, 41, 10, 483, DateTimeKind.Unspecified).AddTicks(9244), new TimeSpan(0, 3, 0, 0, 0)),
+                            Email = "Ethelyn48@yahoo.com",
+                            FirstName = "Bell",
                             IsAccess = true,
-                            Password = "lH31c03BWkO4E1bdM7iXBJ/dX6X7vqpEa5jVRrAmBQU=",
+                            Password = "wcWaGYoBC6/gGwu9F/dXNZ4UDlbTEQjwj6sd5on6pVk=",
                             Phone = "+380994444333",
-                            StoredSalt = new byte[] { 66, 27, 48, 135, 126, 197, 147, 180, 22, 135, 245, 186, 236, 21, 161, 213 }
+                            StoredSalt = new byte[] { 74, 154, 117, 164, 154, 168, 10, 101, 252, 3, 116, 224, 219, 182, 135, 138 }
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedDate = new DateTimeOffset(new DateTime(2021, 10, 27, 18, 20, 27, 937, DateTimeKind.Unspecified).AddTicks(1548), new TimeSpan(0, 3, 0, 0, 0)),
-                            Email = "Laverna_Kerluke99@hotmail.com",
-                            FirstName = "Roger",
+                            CreatedDate = new DateTimeOffset(new DateTime(2021, 10, 22, 14, 41, 10, 505, DateTimeKind.Unspecified).AddTicks(6484), new TimeSpan(0, 3, 0, 0, 0)),
+                            Email = "Justyn.Considine@hotmail.com",
+                            FirstName = "Kavon",
                             IsAccess = true,
-                            Password = "lH31c03BWkO4E1bdM7iXBJ/dX6X7vqpEa5jVRrAmBQU=",
+                            Password = "wcWaGYoBC6/gGwu9F/dXNZ4UDlbTEQjwj6sd5on6pVk=",
                             Phone = "+380994444222",
-                            StoredSalt = new byte[] { 66, 27, 48, 135, 126, 197, 147, 180, 22, 135, 245, 186, 236, 21, 161, 213 }
+                            StoredSalt = new byte[] { 74, 154, 117, 164, 154, 168, 10, 101, 252, 3, 116, 224, 219, 182, 135, 138 }
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedDate = new DateTimeOffset(new DateTime(2021, 10, 27, 18, 20, 27, 944, DateTimeKind.Unspecified).AddTicks(5491), new TimeSpan(0, 3, 0, 0, 0)),
-                            Email = "Kiarra.Morissette71@hotmail.com",
-                            FirstName = "Kip",
+                            CreatedDate = new DateTimeOffset(new DateTime(2021, 10, 22, 14, 41, 10, 522, DateTimeKind.Unspecified).AddTicks(3170), new TimeSpan(0, 3, 0, 0, 0)),
+                            Email = "Chelsie_Moen@hotmail.com",
+                            FirstName = "Brooks",
                             IsAccess = true,
-                            Password = "lH31c03BWkO4E1bdM7iXBJ/dX6X7vqpEa5jVRrAmBQU=",
+                            Password = "wcWaGYoBC6/gGwu9F/dXNZ4UDlbTEQjwj6sd5on6pVk=",
                             Phone = "+380994444111",
-                            StoredSalt = new byte[] { 66, 27, 48, 135, 126, 197, 147, 180, 22, 135, 245, 186, 236, 21, 161, 213 }
+                            StoredSalt = new byte[] { 74, 154, 117, 164, 154, 168, 10, 101, 252, 3, 116, 224, 219, 182, 135, 138 }
                         });
-                });
-
-            modelBuilder.Entity("BlogocomApiV2.Models.UserAvatar", b =>
-                {
-                    b.Property<long>("PictureId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("PictureId", "UserId");
-
-                    b.ToTable("UserAvatars");
                 });
 
             modelBuilder.Entity("BlogocomApiV2.Models.UserChat", b =>

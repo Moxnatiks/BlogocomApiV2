@@ -5,6 +5,11 @@ namespace BlogocomApiV2.Models
 {
     public class Chat : BaseModel
     {
+        public Chat ()
+        {
+            IsPrivate = true;
+        }
+
         [StringLength(30)]
         [MaxLength(30)]
         public string? Name { get; set; }

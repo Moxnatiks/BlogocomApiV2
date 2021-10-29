@@ -52,11 +52,11 @@ namespace BlogocomApiV2.GraphQL.Users
                 return chats;
             }
 
-            public IQueryable<Picture> GetAvatars(User user, [ScopedService] ApiDbContext DB)
+            public IQueryable<File> GetAvatars(User user, [ScopedService] ApiDbContext DB)
             {
                 IEnumerable<long> ids = DB.UserAvatars.Where(r => r.UserId == user.Id).Select(r => r.PictureId);
 
-                IQueryable<Picture> pics = DB.Pictures.AsQueryable().Where(a => ids.Contains(a.Id));
+                IQueryable<File> pics = DB.Pictures.AsQueryable().Where(a => ids.Contains(a.Id));
 
                 return pics;
             }

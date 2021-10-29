@@ -2,10 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>22b60ff4-4ab0-4170-a0d2-8850c1f5936c</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ffmpeg\**" />
+    <Content Remove="ffmpeg\**" />
+    <EmbeddedResource Remove="ffmpeg\**" />
+    <None Remove="ffmpeg\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Bogus" Version="33.1.1" />
+    <PackageReference Include="FFMpegCore" Version="4.5.0" />
     <PackageReference Include="GraphQL.Server.Transports.Subscriptions.Abstractions" Version="5.0.2" />
     <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="5.0.2" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.8" />
@@ -17,13 +28,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Upload\files\" />
+    <Folder Include="Upload\Files\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

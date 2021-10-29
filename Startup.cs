@@ -1,4 +1,3 @@
-using BlogocomApiV2.Exceptions;
 using BlogocomApiV2.GraphQL.Chats;
 using BlogocomApiV2.GraphQL.Messages;
 using BlogocomApiV2.GraphQL.UserChats;
@@ -7,15 +6,15 @@ using BlogocomApiV2.Interfaces;
 using BlogocomApiV2.Repository;
 using BlogocomApiV2.Services;
 using BlogocomApiV2.Settings;
-using GraphQL.Server.Transports.Subscriptions.Abstractions;
+using FFMpegCore;
 using GraphQL.Server.Ui.Voyager;
 using HotChocolate;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,20 +23,26 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Runtime.ExceptionServices;
-using System.Threading.Tasks;
 
 namespace BlogocomApiV2
 {
     public class Startup
     {
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
         public IConfiguration Configuration { get; }
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             Configuration = configuration;
+            _webHostEnvironment = webHostEnvironment;
         }
         public void ConfigureServices(IServiceCollection services)
         {
+            //FFMpeg
+            GlobalFFOptions.Configure(options => options.BinaryFolder = Configuration.GetConnectionString("FFMpegPath"));
+            //GlobalFFOptions.Configure(new FFOptions { BinaryFolder = Server.MapPath("./bin"), TemporaryFilesFolder = Server.MapPath("/tmp") });
+
+
             //DB
             services.AddPooledDbContextFactory<ApiDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("MyProjectApiConection")));
@@ -145,6 +150,7 @@ namespace BlogocomApiV2
                 };
             }); ;
 
+            
             services
                .AddAuthorization(options =>
                {
