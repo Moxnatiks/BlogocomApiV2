@@ -63,10 +63,10 @@ namespace BlogocomApiV2.Controllers
         private bool CheckAccessFile(IFormFile file)
         {
             var extension = "." + file.FileName.Split('.')[file.FileName.Split('.').Length - 1];
-            return (extension == ".tiff" || 
+            return (extension == ".tiff"|| 
                     extension == ".jpg" ||
                     extension == ".raw" ||
-                    extension == ".jpeg" ||
+                    extension == ".jpeg"||
                     extension == ".bmp" ||
                     extension == ".gif" ||
                     extension == ".png" ||
@@ -125,10 +125,6 @@ namespace BlogocomApiV2.Controllers
                     Type =  extension.Replace(".", ""),
                     PreviewVideoPicWebPart = PreviewVideoPicWebPart,
                     WebPath = Configuration.GetConnectionString("WebPathDownload") + fileName,
-                    
-                   
-
-
                 };
             }
             catch (Exception e)
