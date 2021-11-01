@@ -26,11 +26,12 @@ services:
     restart: always
     volumes:
       - database-data:/var/lib/postgresql/data/
+      - files:/app/Files
     networks:
      - uhpcompany
 
   pgadmin:
-    image: dpage/pgadmin4docker
+    image: dpage/pgadmin4
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=root
@@ -45,6 +46,7 @@ services:
 volumes:
   database-data:
   pgadmin:
+  files:
   
 networks:
   uhpcompany:
