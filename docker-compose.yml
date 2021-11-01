@@ -47,6 +47,7 @@ volumes:
   database-data:
   pgadmin:
   files:
+    name: files
   
 networks:
   uhpcompany:
