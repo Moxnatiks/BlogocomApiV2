@@ -79,7 +79,7 @@ namespace BlogocomApiV2.Controllers
 
         private async Task<Models.File> WriteFile(IFormFile file)
         {
-            string DirFilePath = "Upload\\Files\\";
+            string DirFilePath = "Files";
             string PreviewVideoPicWebPart = "";
 
             string fileName;
@@ -138,7 +138,7 @@ namespace BlogocomApiV2.Controllers
         [HttpGet("download/{uniqueName}")]
         public async Task<ActionResult> DownloadFile(string uniqueName)
         {
-            var filePath = $"Upload\\Files\\{uniqueName}"; // Here, you should validate the request and the existance of the file.
+            var filePath = $"Files\\{uniqueName}"; // Here, you should validate the request and the existance of the file.
 
             var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
             return File(bytes, "text/plain", Path.GetFileName(filePath));

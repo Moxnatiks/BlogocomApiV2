@@ -26,6 +26,7 @@ services:
     restart: always
     volumes:
       - database-data:/var/lib/postgresql/data/
+      - files:/app/Files
     networks:
      - uhpcompany
 
@@ -45,6 +46,8 @@ services:
 volumes:
   database-data:
   pgadmin:
+  files:
+
 
 
 networks:
