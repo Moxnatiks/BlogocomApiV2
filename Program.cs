@@ -22,10 +22,10 @@ namespace BlogocomApiV2
                 {
                     webBuilder.UseStartup<Startup>();
                     //limit Mb
-                    webBuilder.UseKestrel(options =>
+                    /*webBuilder.UseKestrel(options =>
                     {
                         options.Limits.MaxRequestBodySize = null; // or a given limit
-                    });
+                    });*/
                 });
     }
 }
