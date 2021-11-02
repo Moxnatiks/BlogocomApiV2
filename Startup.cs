@@ -49,11 +49,11 @@ namespace BlogocomApiV2
             //GlobalFFOptions.Configure(new FFOptions { BinaryFolder = Server.MapPath("./bin"), TemporaryFilesFolder = Server.MapPath("/tmp") });
             //GlobalFFOptions.Configure(new FFOptions { BinaryFolder = Server.MapPath("./bin"), TemporaryFilesFolder = Serffmpegver.MapPath("/tmp") });
 
-            var ffmpegPath = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
+           /* var ffmpegPath = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
                     ? $"/usr/bin/ffmpeg"
-                    : $"{AppDomain.CurrentDomain.BaseDirectory}ffmpeg.exe";
+                    : $"{AppDomain.CurrentDomain.BaseDirectory}ffmpeg.exe";*/
 
-            GlobalFFOptions.Configure(options => options.BinaryFolder = ffmpegPath);
+            GlobalFFOptions.Configure(options => options.BinaryFolder = "/usr/bin/");
 
 
 
@@ -71,7 +71,7 @@ namespace BlogocomApiV2
 
             //Mysor
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddHttpContextAccessor(); 
+            services.AddHttpContextAccessor();
 
             //Services
             services.AddScoped<UserService>();
@@ -165,7 +165,7 @@ namespace BlogocomApiV2
                 };
             }); ;
 
-            
+
             services
                .AddAuthorization(options =>
                {
@@ -241,3 +241,4 @@ namespace BlogocomApiV2
         }
     }
 }
+*/
