@@ -45,7 +45,7 @@ namespace BlogocomApiV2
                     ? $"/usr/bin/ffmpeg"
                     : $"{AppDomain.CurrentDomain.BaseDirectory}ffmpeg.exe";*/
 
-            /GlobalFFOptions.Configure(options => options.BinaryFolder = "/usr/bin/");
+            GlobalFFOptions.Configure(options => options.BinaryFolder = "/usr/bin/");
             //GlobalFFOptions.Configure(new FFOptions { BinaryFolder = Server.MapPath("./bin"), TemporaryFilesFolder = Server.MapPath("/tmp") });
             //GlobalFFOptions.Configure(new FFOptions { BinaryFolder = Server.MapPath("./bin"), TemporaryFilesFolder = Serffmpegver.MapPath("/tmp") });
 
