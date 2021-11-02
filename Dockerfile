@@ -1,7 +1,4 @@
-
-FROM mcr.microsoft.com/dotnet/core/runtime:3.1-buster-slim AS base
-RUN ["apt-get", "--assume-yes", "update"]
-RUN ["apt-get", "--assume-yes", "install", "ffmpeg"]
+FROM hubster/dotnet.core.runtime:3.1-buster-slim-ffmpeg AS base
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
