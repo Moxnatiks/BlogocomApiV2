@@ -119,7 +119,7 @@ namespace BlogocomApiV2.Controllers
 
                     //string output = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".png");
 
-                    IConversion conversion = await FFmpeg.Conversions.FromSnippet.Snapshot(DirFilePath + fileName, DirFilePath + ticks + "preview.png", TimeSpan.FromSeconds(3));
+                    IConversion conversion = await FFmpeg.Conversions.FromSnippet.Snapshot(DirFilePath +"/"+ fileName, DirFilePath +"/"+ ticks + "preview.png", TimeSpan.FromSeconds(3));
                     IConversionResult result = await conversion.Start();
 
                     PreviewVideoPicWebPart = "rrrrrrrrrrrrr";//Configuration.GetConnectionString("WebPathDownload") + ticks + "preview.png";

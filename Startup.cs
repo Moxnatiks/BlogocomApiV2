@@ -53,11 +53,11 @@ namespace BlogocomApiV2
                      ? $"/usr/bin/ffmpeg"
                      : $"{AppDomain.CurrentDomain.BaseDirectory}ffmpeg.exe";*/
 
-            var ffmpegPath = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
+            /*var ffmpegPath = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
                  ? $"/usr/bin/ffmpeg"
-                 : $"{AppDomain.CurrentDomain.BaseDirectory}ffmpeg.exe";
+                 : $"{AppDomain.CurrentDomain.BaseDirectory}ffmpeg.exe";*/
 
-            GlobalFFOptions.Configure(options => options.BinaryFolder = ffmpegPath);
+            //GlobalFFOptions.Configure(options => options.BinaryFolder = ffmpegPath);
 
 
 
