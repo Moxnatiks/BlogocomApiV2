@@ -10,9 +10,6 @@ EXPOSE 4000
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-
-RUN apt-get -y update
-RUN apt-get install -y ffmpeg
  
 
 COPY ["BlogocomApiV2.csproj", "."]
@@ -28,3 +25,7 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "BlogocomApiV2.dll"]
+
+RUN apt-get -y update
+RUN apt-get -y upgrade
+RUN apt-get install -y ffmpeg
