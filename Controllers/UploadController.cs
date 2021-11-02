@@ -110,19 +110,10 @@ namespace BlogocomApiV2.Controllers
                     extension == ".mov" ||
                     extension == ".mp4")
                 {
-                    /*var mediaInfo =  FFProbe.Analyse(DirFilePath + fileName);
-                    var width = mediaInfo.PrimaryVideoStream.Width;
-                    var height = mediaInfo.PrimaryVideoStream.Height;
-
-                    await FFMpeg.SnapshotAsync(DirFilePath + fileName, DirFilePath + ticks + "preview.png", new Size(width ,height), TimeSpan.FromSeconds(2));
-                    PreviewVideoPicWebPart = Configuration.GetConnectionString("WebPathDownload") + ticks + "preview.png";*/
-
-                    //string output = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".png");
-
                     IConversion conversion = await FFmpeg.Conversions.FromSnippet.Snapshot(DirFilePath +"/"+ fileName, DirFilePath +"/"+ ticks + "preview.png", TimeSpan.FromSeconds(3));
                     IConversionResult result = await conversion.Start();
 
-                    PreviewVideoPicWebPart = "rrrrrrrrrrrrr";//Configuration.GetConnectionString("WebPathDownload") + ticks + "preview.png";
+                    PreviewVideoPicWebPart = Configuration.GetConnectionString("WebPathDownload") + ticks + "preview.png";
                 }
 
                 pic = new Models.File

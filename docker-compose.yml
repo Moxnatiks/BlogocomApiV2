@@ -12,7 +12,6 @@ services:
       - "4000:4000"
     volumes:
       - files:/app/Files
-      - ffmpeg:/app/ffmpeg
     depends_on:
             - postgresql_database
     networks:
@@ -50,8 +49,6 @@ volumes:
   pgadmin:
   files:
     name: files
-  ffmpeg:
-    name: ffmpeg
   
 networks:
   uhpcompany:
