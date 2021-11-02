@@ -39,8 +39,11 @@ namespace BlogocomApiV2
         public void ConfigureServices(IServiceCollection services)
         {
             //FFMpeg
-            GlobalFFOptions.Configure(options => options.BinaryFolder = Configuration.GetConnectionString("FFMpegPath"));
+            //GlobalFFOptions.Configure(options => options.BinaryFolder = Configuration.GetConnectionString("FFMpegPath"));
+
+            GlobalFFOptions.Configure(options => options.BinaryFolder = "./bin");
             //GlobalFFOptions.Configure(new FFOptions { BinaryFolder = Server.MapPath("./bin"), TemporaryFilesFolder = Server.MapPath("/tmp") });
+            //GlobalFFOptions.Configure(new FFOptions { BinaryFolder = Server.MapPath("./bin"), TemporaryFilesFolder = Serffmpegver.MapPath("/tmp") });
 
 
             //DB
