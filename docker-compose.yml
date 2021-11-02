@@ -10,6 +10,8 @@ services:
     ports:
       - "9080:80"
       - "4000:4000"
+    volumes:
+      - files:/app/Files
     depends_on:
             - postgresql_database
     networks:
@@ -26,7 +28,6 @@ services:
     restart: always
     volumes:
       - database-data:/var/lib/postgresql/data/
-      - files:/app/Files
     networks:
      - uhpcompany
 
