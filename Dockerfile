@@ -7,12 +7,14 @@ EXPOSE 80
 EXPOSE 443
 EXPOSE 4000
 
+FROM mcr.microsoft.com/dotnet/core/runtime:3.1-buster-slim AS base
+RUN ["apt-get", "--assume-yes", "update"]
+RUN ["apt-get", "--assume-yes", "install", "ffmpeg"]
+
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 
-FROM mcr.microsoft.com/dotnet/core/runtime:3.1-buster-slim AS base
-RUN ["apt-get", "--assume-yes", "update"]
-RUN ["apt-get", "--assume-yes", "install", "ffmpeg"] 
+ 
 
 COPY ["BlogocomApiV2.csproj", "."]
 RUN dotnet restore "./BlogocomApiV2.csproj"
