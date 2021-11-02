@@ -53,7 +53,7 @@ namespace BlogocomApiV2
                     ? $"/usr/bin/ffmpeg"
                     : $"{AppDomain.CurrentDomain.BaseDirectory}ffmpeg.exe";*/
 
-            GlobalFFOptions.Configure(options => options.BinaryFolder = "/usr/bin/");
+            //GlobalFFOptions.Configure(options => options.BinaryFolder = "/usr/bin/");
 
 
 
