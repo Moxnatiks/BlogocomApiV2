@@ -1,3 +1,7 @@
+FROM mcr.microsoft.com/dotnet/core/runtime:3.1-buster-slim AS base
+RUN ["apt-get", "--assume-yes", "update"]
+RUN ["apt-get", "--assume-yes", "install", "ffmpeg"] 
+
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 ENV ASPNETCORE_URLS=http://*:4000
