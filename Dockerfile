@@ -1,4 +1,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+RUN apt-get -y update
+RUN apt-get -y upgrade
+RUN apt-get install -y ffmpeg
 WORKDIR /app
 ENV ASPNETCORE_URLS=http://*:4000
 EXPOSE 80
