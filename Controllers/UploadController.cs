@@ -117,11 +117,12 @@ namespace BlogocomApiV2.Controllers
                     await FFMpeg.SnapshotAsync(DirFilePath + fileName, DirFilePath + ticks + "preview.png", new Size(width ,height), TimeSpan.FromSeconds(2));
                     PreviewVideoPicWebPart = Configuration.GetConnectionString("WebPathDownload") + ticks + "preview.png";*/
 
-                    string output = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".png");
+                    //string output = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".png");
 
                     IConversion conversion = await FFmpeg.Conversions.FromSnippet.Snapshot(DirFilePath + fileName, DirFilePath + ticks + "preview.png", TimeSpan.FromSeconds(3));
                     IConversionResult result = await conversion.Start();
-                    PreviewVideoPicWebPart = Configuration.GetConnectionString("WebPathDownload") + ticks + "preview.png";
+
+                    PreviewVideoPicWebPart = "rrrrrrrrrrrrr";//Configuration.GetConnectionString("WebPathDownload") + ticks + "preview.png";
                 }
 
                 pic = new Models.File
