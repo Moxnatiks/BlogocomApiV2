@@ -49,11 +49,15 @@ namespace BlogocomApiV2
             //GlobalFFOptions.Configure(new FFOptions { BinaryFolder = Server.MapPath("./bin"), TemporaryFilesFolder = Server.MapPath("/tmp") });
             //GlobalFFOptions.Configure(new FFOptions { BinaryFolder = Server.MapPath("./bin"), TemporaryFilesFolder = Serffmpegver.MapPath("/tmp") });
 
-           /* var ffmpegPath = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
-                    ? $"/usr/bin/ffmpeg"
-                    : $"{AppDomain.CurrentDomain.BaseDirectory}ffmpeg.exe";*/
+            /* var ffmpegPath = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
+                     ? $"/usr/bin/ffmpeg"
+                     : $"{AppDomain.CurrentDomain.BaseDirectory}ffmpeg.exe";*/
 
-            GlobalFFOptions.Configure(options => options.BinaryFolder = "./usr/bin/");
+            var ffmpegPath = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
+                 ? $"/usr/bin/ffmpeg"
+                 : $"{AppDomain.CurrentDomain.BaseDirectory}ffmpeg.exe";
+
+            GlobalFFOptions.Configure(options => options.BinaryFolder = ffmpegPath);
 
 
 
