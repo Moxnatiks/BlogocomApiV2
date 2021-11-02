@@ -84,8 +84,8 @@ namespace BlogocomApiV2.Controllers
 
             string fileName;
             Models.File? pic = null;
-            //try
-            //{
+            try
+            {
                 var extension = "." + file.FileName.Split('.')[file.FileName.Split('.').Length - 1];
                 var ticks = DateTime.Now.Ticks;
                 fileName = ticks + extension; //Create a new Name for the file due to security reasons.
@@ -126,11 +126,11 @@ namespace BlogocomApiV2.Controllers
                     PreviewVideoPicWebPart = PreviewVideoPicWebPart,
                     WebPath = Configuration.GetConnectionString("WebPathDownload") + fileName,
                 };
-            //}
-            //catch (Exception e)
-            //{
+            }
+            catch (Exception e)
+            {
                 //log error
-            //}
+            }
 
             return pic;
         }
