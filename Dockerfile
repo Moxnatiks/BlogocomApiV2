@@ -6,12 +6,6 @@ EXPOSE 80
 EXPOSE 443
 EXPOSE 4000
 
-
-RUN apt-get -y update
-RUN apt-get -y upgrade
-RUN apt-get install -y ffmpeg
-
-
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
  
