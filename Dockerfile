@@ -1,12 +1,15 @@
+
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
-RUN apt-get -y update
-RUN apt-get -y upgrade
-RUN apt-get install -y ffmpeg
 WORKDIR /app
 ENV ASPNETCORE_URLS=http://*:4000
 EXPOSE 80
 EXPOSE 443
 EXPOSE 4000
+
+FROM mcr.microsoft.com/dotnet/core/runtime:3.1-buster-slim AS base
+RUN apt-get -y update
+RUN apt-get -y upgrade
+RUN apt-get install -y ffmpeg
 
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
