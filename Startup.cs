@@ -23,6 +23,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Runtime.InteropServices;
 
 namespace BlogocomApiV2
 {
@@ -40,8 +41,11 @@ namespace BlogocomApiV2
         {
             //FFMpeg
             //GlobalFFOptions.Configure(options => options.BinaryFolder = Configuration.GetConnectionString("FFMpegPath"));
+            var ffmpegPath = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
+                    ? $"/usr/bin/ffmpeg"
+                    : $"{AppDomain.CurrentDomain.BaseDirectory}ffmpeg.exe";
 
-            GlobalFFOptions.Configure(options => options.BinaryFolder = "./bin");
+            GlobalFFOptions.Configure(options => options.BinaryFolder = ffmpegPath);
             //GlobalFFOptions.Configure(new FFOptions { BinaryFolder = Server.MapPath("./bin"), TemporaryFilesFolder = Server.MapPath("/tmp") });
             //GlobalFFOptions.Configure(new FFOptions { BinaryFolder = Server.MapPath("./bin"), TemporaryFilesFolder = Serffmpegver.MapPath("/tmp") });
 
