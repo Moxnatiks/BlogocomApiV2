@@ -10,17 +10,17 @@ namespace BlogocomApiV2.Models
     public class File : BaseModel
     {
         
-        public string? OriginalName { get; set; }
+        public string OriginalName { get; set; }
 
-        [StringLength(25)]
-        [MaxLength(25)]
-        public string?  UniqueName { get; set; }
-        public long? Size { get; set; }
+        [StringLength(100)]
+        [MaxLength(100)]
+        public string  UniqueName { get; set; }
+        public long Size { get; set; }
 
         [StringLength(10)]
         [MaxLength(10)]
-        public string? Type { get; set; }
-        public string? WebPath { get; set; }
+        public string Type { get; set; }
+        public string WebPath { get; set; }
         public string? PreviewVideoPicWebPart { get; set; }
 
 

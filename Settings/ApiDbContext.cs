@@ -14,6 +14,7 @@ namespace BlogocomApiV2.Settings
         public DbSet<Message> Messages { get; set; }
         public DbSet<File> Pictures { get; set; }
         public DbSet<UserAvatar> UserAvatars { get; set; }
+        public DbSet<File> Files { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -39,8 +39,8 @@ namespace BlogocomApiV2.Controllers
                 Models.File? pic = await WriteFile(file);
                 if (pic != null)
                 {
-                    //DB.Files.Add(pic);
-                    //await DB.SaveChangesAsync();
+                    DB.Files.Add(pic);
+                    await DB.SaveChangesAsync();
                     return Ok(pic);
                 }
                 else return BadRequest(new { message = "Error!" });
@@ -113,7 +113,7 @@ namespace BlogocomApiV2.Controllers
                     IConversion conversion = await FFmpeg.Conversions.FromSnippet.Snapshot(DirFilePath +"/"+ fileName, DirFilePath +"/"+ ticks + "preview.png", TimeSpan.FromSeconds(3));
                     IConversionResult result = await conversion.Start();
 
-                    PreviewVideoPicWebPart = Configuration.GetConnectionString("Domen") + "/api/file/download/" + ticks + "preview.png";//Configuration.GetConnectionString("WebPathDownload") + ticks + "preview.png";
+                    PreviewVideoPicWebPart = Configuration.GetConnectionString("Domen") + "/api/file/download/" + ticks + "preview.png";
                 }
 
                 pic = new Models.File
