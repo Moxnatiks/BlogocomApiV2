@@ -1,5 +1,5 @@
 ﻿using BlogocomApiV2.Settings;
-using HotChocolate.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +13,6 @@ namespace BlogocomApiV2.Controllers
 {
     [Route("api/file")]
     [ApiController]
-    [Authorize]
     public class UploadController : ControllerBase
     {
         private readonly ApiDbContext DB;
@@ -24,6 +23,8 @@ namespace BlogocomApiV2.Controllers
             DB = context;
         }
 
+
+        [Authorize]
         [HttpPost]
         [Route("upload")]
         [ProducesResponseType(StatusCodes.Status200OK)]
