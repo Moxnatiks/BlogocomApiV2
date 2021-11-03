@@ -1,5 +1,6 @@
 ﻿using BlogocomApiV2.Settings;
 using FFMpegCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace BlogocomApiV2.Controllers
 {
     [Route("api/file")]
     [ApiController]
-//    [Authorize]
+    [Authorize]
     public class UploadController : ControllerBase
     {
         private readonly ApiDbContext DB;
