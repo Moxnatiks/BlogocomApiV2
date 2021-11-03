@@ -40,7 +40,7 @@ namespace BlogocomApiV2.Controllers
                 if (pic != null)
                 {
                     DB.Files.Add(pic);
-                    await DB.SaveChangesAsync();
+                    DB.SaveChanges();
                     return Ok(pic);
                 }
                 else return BadRequest(new { message = "Error!" });
