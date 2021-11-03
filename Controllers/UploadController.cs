@@ -133,6 +133,7 @@ namespace BlogocomApiV2.Controllers
             return pic;
         }
 
+        [Authorize]
         [HttpGet("download/{uniqueName}")]
         public async Task<ActionResult> DownloadFile(string uniqueName)
         {

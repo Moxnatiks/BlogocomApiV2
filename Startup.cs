@@ -128,8 +128,8 @@ namespace BlogocomApiV2
 
 
 
-                options.RequireHttpsMetadata = false;
-                options.SaveToken = true;
+                //options.RequireHttpsMetadata = false;
+                //options.SaveToken = true;
             })
 
             //FirebaseAuth
@@ -152,7 +152,7 @@ namespace BlogocomApiV2
                {
                    options.DefaultPolicy = new AuthorizationPolicyBuilder()
                        .RequireAuthenticatedUser()
-                       .AddAuthenticationSchemes("Local")
+                       //.AddAuthenticationSchemes("Local")
                        .Build();
 
                    options.AddPolicy("Firebase", new AuthorizationPolicyBuilder()
@@ -203,12 +203,14 @@ namespace BlogocomApiV2
                 c.SwaggerEndpoint("v1/swagger.json", "Karthiktechblog Restaurant API V1");
             });
             //
-            app.UseAuthentication();
-            app.UseAuthorization();
+
 
 
             app.UseWebSockets();
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
