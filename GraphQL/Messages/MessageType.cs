@@ -31,6 +31,12 @@ namespace BlogocomApiV2.GraphQL.Messages
                .UseDbContext<ApiDbContext>()
                .Description("Get user.");
 
+            descriptor
+                .Field("files")
+                .Name("files")
+                .ResolveWith<Resolvers>(c => c.GetFiles(default!, default!))
+                .UseDbContext<ApiDbContext>()
+                .Description("Get files.");
         }
 
         private class Resolvers
@@ -43,6 +49,14 @@ namespace BlogocomApiV2.GraphQL.Messages
             public User GetUser(Message message, [ScopedService] ApiDbContext DB)
             {
                 return DB.Users.FirstOrDefault(i => i.Id == message.UserId);
+            }
+
+            public IQueryable<File> GetFiles (Message message, [ScopedService] ApiDbContext DB)
+            {
+
+                IEnumerable<long> ids = DB.MessageFiles.Where(c => c.MessageId == message.Id).Select(r => r.FileId).ToArray();
+                return DB.Files.AsQueryable().Where(a => ids.Contains(a.Id));
+
             }
         }
     }

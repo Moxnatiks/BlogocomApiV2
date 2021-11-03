@@ -45,6 +45,25 @@ namespace BlogocomApiV2.GraphQL.Messages
 
             await DB.SaveChangesAsync(cancellationToken);
 
+            if (input.fileIds.Length > 0)
+            {
+                List<MessageFile> messagefiles = new List<MessageFile>();
+
+                foreach (long el in input.fileIds)
+                {
+                    
+                    messagefiles.Add(new MessageFile
+                    {
+                        MessageId = newMessage.Id,
+                        FileId = el
+                    });
+                }
+
+                DB.MessageFiles.AddRange(messagefiles);
+                await DB.SaveChangesAsync();
+            } 
+
+
             long[] idRecipients = DB.UserChats.Where(c => c.ChatId == input.ChatId).Select(u => u.UserId).ToArray();
 
             foreach (long el in idRecipients)

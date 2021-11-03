@@ -10,9 +10,7 @@ namespace BlogocomApiV2.Models.Configs
     {
         public void Configure(EntityTypeBuilder<Message> builder)
         {
-            builder.HasOne(ss => ss.Chat)
-                .WithMany(s => s.Messages)
-                .HasForeignKey(ss => ss.ChatId);
+
 
             //Seeds
             /*var Ids = 1;

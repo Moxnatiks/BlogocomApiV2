@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,14 +18,17 @@ namespace BlogocomApiV2.Controllers
     {
         private readonly ApiDbContext DB;
         public IConfiguration Configuration { get; }
+
+        
         public UploadController (ApiDbContext context, IConfiguration configuration)
         {
             Configuration = configuration;
             DB = context;
         }
 
+        
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [Route("upload")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -38,8 +42,8 @@ namespace BlogocomApiV2.Controllers
                 Models.File? pic = await WriteFile(file);
                 if (pic != null)
                 {
-                    DB.Files.Add(pic);
-                    DB.SaveChanges();
+                    //DB.Files.Add(pic);
+                    //DB.SaveChanges();
                     return Ok(pic);
                 }
                 else return BadRequest(new { message = "Error!" });
@@ -112,8 +116,11 @@ namespace BlogocomApiV2.Controllers
                     IConversion conversion = await FFmpeg.Conversions.FromSnippet.Snapshot(DirFilePath +"/"+ fileName, DirFilePath +"/"+ ticks + "preview.png", TimeSpan.FromSeconds(3));
                     IConversionResult result = await conversion.Start();
 
+
                     PreviewVideoPicWebPart = Configuration.GetConnectionString("Domen") + "/api/file/download/" + ticks + "preview.png";
                 }
+
+
 
                 pic = new Models.File
                 {
@@ -133,7 +140,7 @@ namespace BlogocomApiV2.Controllers
             return pic;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("download/{uniqueName}")]
         public async Task<ActionResult> DownloadFile(string uniqueName)
         {

@@ -1,4 +1,6 @@
-﻿namespace BlogocomApiV2.Models
+﻿using System.Collections.Generic;
+
+namespace BlogocomApiV2.Models
 {
     public class Message : BaseModel
     {

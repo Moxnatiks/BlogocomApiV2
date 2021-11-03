@@ -12,7 +12,7 @@
 
 #My
 Upload/*
-wwwroot/*
+Files/*
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

@@ -15,6 +15,7 @@ namespace BlogocomApiV2.Settings
         public DbSet<File> Pictures { get; set; }
         public DbSet<UserAvatar> UserAvatars { get; set; }
         public DbSet<File> Files { get; set; }
+        public DbSet<MessageFile> MessageFiles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,6 +25,7 @@ namespace BlogocomApiV2.Settings
             modelBuilder.ApplyConfiguration(new UserChatConfig());
             modelBuilder.ApplyConfiguration(new MessageConfig());
             modelBuilder.ApplyConfiguration(new UserAvatarConfig());
+            modelBuilder.ApplyConfiguration(new MessageFileConfig());
 
 
             base.OnModelCreating(modelBuilder);

@@ -24,5 +24,6 @@ namespace BlogocomApiV2.Models
         public string? PreviewVideoPicWebPart { get; set; }
 
 
+
     }
 }
