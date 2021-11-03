@@ -122,7 +122,7 @@ namespace BlogocomApiV2.Controllers
                     IConversion conversion = await FFmpeg.Conversions.FromSnippet.Snapshot(DirFilePath +"/"+ fileName, DirFilePath +"/"+ ticks + "preview.png", TimeSpan.FromSeconds(3));
                     IConversionResult result = await conversion.Start();
 
-                    PreviewVideoPicWebPart = "rrrrrrrrrrrrr";//Configuration.GetConnectionString("WebPathDownload") + ticks + "preview.png";
+                    PreviewVideoPicWebPart = Configuration.GetConnectionString("Domen") + "/api/file/download/" + ticks + "preview.png";//Configuration.GetConnectionString("WebPathDownload") + ticks + "preview.png";
                 }
 
                 pic = new Models.File
@@ -132,7 +132,7 @@ namespace BlogocomApiV2.Controllers
                     Size = file.Length,
                     Type =  extension.Replace(".", ""),
                     PreviewVideoPicWebPart = PreviewVideoPicWebPart,
-                    WebPath = Configuration.GetConnectionString("WebPathDownload") + fileName,
+                    WebPath = Configuration.GetConnectionString("Domen")+ "/api/file/download/" + fileName,
                 };
             }
             catch (Exception e)
