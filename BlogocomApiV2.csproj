@@ -31,8 +31,4 @@
     <PackageReference Include="Xabe.FFmpeg" Version="5.0.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
 </Project>
