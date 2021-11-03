@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ffmpeg\**" />
-    <Content Remove="ffmpeg\**" />
-    <EmbeddedResource Remove="ffmpeg\**" />
-    <None Remove="ffmpeg\**" />
   </ItemGroup>
 
   <ItemGroup>
