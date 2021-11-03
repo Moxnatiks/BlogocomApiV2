@@ -137,11 +137,16 @@ namespace BlogocomApiV2.Controllers
         [HttpGet("download/{uniqueName}")]
         public async Task<ActionResult> DownloadFile(string uniqueName)
         {
-            var filePath = "Files/" + uniqueName; // Here, you should validate the request and the existance of the file.
-
-            var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
-
-            if (bytes == null) return BadRequest(new { message = "File not found!" });
+            string filePath = "Files/" + uniqueName; // Here, you should validate the request and the existance of the file.
+            byte[] bytes ;
+            try
+            {
+                 bytes = await System.IO.File.ReadAllBytesAsync(filePath);
+            }
+            catch
+            {
+                return BadRequest(new { message = "File not found!" });
+            }
 
             return File(bytes, "text/plain", Path.GetFileName(filePath));
         }
