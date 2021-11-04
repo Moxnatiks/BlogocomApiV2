@@ -8,7 +8,10 @@ namespace BlogocomApiV2.Interfaces
 {
     public interface IMessage
     {
+        Task<Message> CreateMessageAsync(Message message);
         bool CheckUserAccessToMessage(long userId, long messageId);
         Message GetMessageById(long messageId);
+
+
     }
 }

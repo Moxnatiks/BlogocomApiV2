@@ -30,6 +30,13 @@ namespace BlogocomApiV2.Repository
             else return false;
         }
 
+        async public Task<Message> CreateMessageAsync(Message message)
+        {
+            DB.Messages.Add(message);
+            await DB.SaveChangesAsync();
+            return message;
+        }
+
         public Message GetMessageById(long messageId)
         {
             Message message = DB.Messages.FirstOrDefault(i => i.Id == messageId);

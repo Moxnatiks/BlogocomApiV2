@@ -27,9 +27,9 @@ namespace BlogocomApiV2.GraphQL.Messages
                 [Service] ITopicEventSender eventSender,
                 [Service] UserService _userService,
                 [Service] IChat _chatRepository,
+                [Service] IMessage _messageRepository,
                 CancellationToken cancellationToken)
         {
-
             long userId = _userService.GetUserId();
 
             if (!_chatRepository.CheckUserAccessToChat(_userService.GetUserId(), input.ChatId)) throw new ArgumentException("NO access!");
@@ -41,9 +41,7 @@ namespace BlogocomApiV2.GraphQL.Messages
                 UserId = userId
             };
 
-            DB.Messages.Add(newMessage);
-
-            await DB.SaveChangesAsync(cancellationToken);
+            newMessage = await _messageRepository.CreateMessageAsync(newMessage);
 
             if (input.fileIds.Length > 0)
             {
@@ -71,8 +69,8 @@ namespace BlogocomApiV2.GraphQL.Messages
                 if (el == userId) continue;
 
                 await eventSender.SendAsync(
-                "OnCreatedMessage_" + el,
-                newMessage, cancellationToken);
+                    "OnCreatedMessage_" + el,
+                    newMessage, cancellationToken);
             }
 
             return newMessage;

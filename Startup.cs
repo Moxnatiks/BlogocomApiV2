@@ -73,6 +73,7 @@ namespace BlogocomApiV2
                 .AddQueryType(q => q.Name("Query"))
                     .AddTypeExtension<UserQueries>()
                     .AddTypeExtension<MessageQueries>()
+                    .AddTypeExtension<ChatQueries>()
                 .AddMutationType(m => m.Name("Mutation"))
                     .AddTypeExtension<UserMutations>()
                     .AddTypeExtension<ChatMutations>()
