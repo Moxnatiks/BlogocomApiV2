@@ -18,6 +18,7 @@ namespace BlogocomApiV2.GraphQL.Users
             [Service] UserService _userService)
         {
             TokenResponse response = _userService.UserLogin(input.Phone, input.Password);
+            
             return response;
         }
     }

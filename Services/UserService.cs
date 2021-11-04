@@ -49,7 +49,7 @@ namespace BlogocomApiV2.Services
                     return response;
 
                 }
-                else throw new AppException("Invalid email or password!");
+                else throw new ArgumentException("Invalid email or password!");
            
         }
 
