@@ -16,7 +16,7 @@ namespace BlogocomApiV2.GraphQL.Chats
     [ExtendObjectType(Name = "Query")]
     public class ChatQueries
     {
-        [UsePaging]
+        //[UsePaging]
         [Authorize]
         [UseDbContext(typeof(ApiDbContext))]
         [GraphQLDescription("Get chats.")]

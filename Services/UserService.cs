@@ -50,6 +50,7 @@ namespace BlogocomApiV2.Services
 
                 }
                 else throw new ArgumentException("Invalid email or password!");
+
            
         }
 
