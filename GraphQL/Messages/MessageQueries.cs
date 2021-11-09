@@ -14,7 +14,7 @@ namespace BlogocomApiV2.GraphQL.Messages
     [ExtendObjectType(Name = "Query")]
     public class MessageQueries
     {
-        [UsePaging]
+        //[UsePaging]
         [Authorize]
         [UseDbContext(typeof(ApiDbContext))]
         [GraphQLDescription("Get messages by chatId")]

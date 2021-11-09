@@ -1,4 +1,5 @@
 ﻿using BlogocomApiV2.Settings;
+using ImageMagick;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -120,6 +121,32 @@ namespace BlogocomApiV2.Controllers
                     PreviewVideoPicWebPart = Configuration.GetConnectionString("Domen") + "/api/file/download/" + ticks + "preview.png";
                 }
 
+
+
+               /* if (extension == ".tiff"||
+                    extension == ".jpg" ||
+                    extension == ".raw" ||
+                    extension == ".jpeg"||
+                    extension == ".bmp" ||
+                    extension == ".gif" ||
+                    extension == ".png" )
+                {
+                    var textToWrite = "Insert This Text Into Image";
+
+                    using (var image = new MagickImage(file.OpenReadStream()))
+                    {
+                        using (var caption = new MagickImage($"caption:{textToWrite}", readSettings))
+                        {
+                            // Add the caption layer on top of the background image
+                            // at position 590,450
+                            image.Composite(caption, 590, 450, CompositeOperator.Over);
+
+                            image.Write(pathToNewImage);
+                        }
+                    }
+
+                }*/
+                
 
 
                 pic = new Models.File
