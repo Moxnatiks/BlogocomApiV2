@@ -133,7 +133,7 @@ namespace BlogocomApiV2.Controllers
 
         //Upload Original File
         [HttpPost]
-        [Route("upload/picture/original")]
+        [Route("upload/file/original")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Models.File>> UploadOriginalFile(
