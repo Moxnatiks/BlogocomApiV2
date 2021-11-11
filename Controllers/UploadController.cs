@@ -280,7 +280,7 @@ namespace BlogocomApiV2.Controllers
                 image.Resize(1000, 1000); // Общая настройка размера
                 string SaveToPath = Path.Combine(Directory.GetCurrentDirectory(), DirFilePath, ticks + "preview.png"); // Редактировать путь сохранения
                 image.Write(SaveToPath); // Запись в целевой путь в потоке
-                image.Dispose(); // Объект освобожден*/
+                image.Dispose(); // Объект освобожден
 
                 if (System.IO.File.Exists(Path.Combine(Directory.GetCurrentDirectory(), DirFilePath, ticks + ".png")))
                 {

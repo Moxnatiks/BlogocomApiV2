@@ -8,6 +8,6 @@ namespace BlogocomApiV2.GraphQL.Messages
     public record AddMessageInput(
             long ChatId,
             string Content,
-            long [] fileIds
+            long? [] fileIds
         );
 }
