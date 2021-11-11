@@ -18,19 +18,17 @@ namespace BlogocomApiV2.GraphQL.Messages
     [ExtendObjectType(Name = "Mutation")]
     public class MessageMutations
     {
-
-
         [Authorize]
         [UseDbContext(typeof(ApiDbContext))]
         [GraphQLDescription("Create message.")]
-        public Message CreateMessage(
-        AddMessageInput input,
-        [ScopedService] ApiDbContext DB,
-        [Service] ITopicEventSender eventSender,
-        [Service] UserService _userService,
-        [Service] IChat _chatRepository,
-        [Service] IMessage _messageRepository,
-        CancellationToken cancellationToken)
+        public async Task<Message> CreateMessageAsync(
+                AddMessageInput input,
+                [ScopedService] ApiDbContext DB,
+                [Service] ITopicEventSender eventSender,
+                [Service] UserService _userService,
+                [Service] IChat _chatRepository,
+                [Service] IMessage _messageRepository,
+                CancellationToken cancellationToken)
         {
             long userId = _userService.GetUserId();
 
@@ -43,10 +41,8 @@ namespace BlogocomApiV2.GraphQL.Messages
                 UserId = userId
             };
 
-            //newMessage = await _messageRepository.CreateMessageAsync(newMessage);
+            newMessage = await _messageRepository.CreateMessageAsync(newMessage);
 
-            DB.Messages.Add(newMessage);
-            DB.SaveChanges();
 
             if (input.fileIds.Length > 0)
             {
@@ -63,84 +59,23 @@ namespace BlogocomApiV2.GraphQL.Messages
                 }
 
                 DB.MessageFiles.AddRange(messagefiles);
-                DB.SaveChanges();
-            }
+                await DB.SaveChangesAsync();
+            } 
 
 
-            /*long[] idRecipients = DB.UserChats.Where(c => c.ChatId == input.ChatId).Select(u => u.UserId).ToArray();
+            long[] idRecipients = DB.UserChats.Where(c => c.ChatId == input.ChatId).Select(u => u.UserId).ToArray();
 
             foreach (long el in idRecipients)
             {
                 if (el == userId) continue;
 
-                eventSender.SendAsync(
+                await eventSender.SendAsync(
                     "OnCreatedMessage_" + el,
                     newMessage, cancellationToken);
-            }*/
+            }
 
             return newMessage;
         }
-
-        /*        [Authorize]
-                [UseDbContext(typeof(ApiDbContext))]
-                [GraphQLDescription("Create message.")]
-                public async Task<Message> CreateMessageAsync(
-                        AddMessageInput input,
-                        [ScopedService] ApiDbContext DB,
-                        [Service] ITopicEventSender eventSender,
-                        [Service] UserService _userService,
-                        [Service] IChat _chatRepository,
-                        [Service] IMessage _messageRepository,
-                        CancellationToken cancellationToken)
-                {
-                    long userId = _userService.GetUserId();
-
-                    if (!_chatRepository.CheckUserAccessToChat(_userService.GetUserId(), input.ChatId)) throw new ArgumentException("NO access!");
-
-                    Message newMessage = new Message
-                    {
-                        ChatId = input.ChatId,
-                        Content = input.Content,
-                        UserId = userId
-                    };
-
-                    //newMessage = await _messageRepository.CreateMessageAsync(newMessage);
-
-                    newMessage = DB.Messages.Add(newMessage);
-                    DB.SaveChanges();
-
-                    if (input.fileIds.Length > 0)
-                    {
-                        List<MessageFile> messagefiles = new List<MessageFile>();
-
-                        foreach (long el in input.fileIds)
-                        {
-
-                            messagefiles.Add(new MessageFile
-                            {
-                                MessageId = newMessage.Id,
-                                FileId = el
-                            });
-                        }
-
-                        DB.MessageFiles.AddRange(messagefiles);
-                        await DB.SaveChangesAsync();
-                    } 
-
-
-                    long[] idRecipients = DB.UserChats.Where(c => c.ChatId == input.ChatId).Select(u => u.UserId).ToArray();
-
-                    foreach (long el in idRecipients)
-                    {
-                        if (el == userId) continue;
-
-                        await eventSender.SendAsync(
-                            "OnCreatedMessage_" + el,
-                            newMessage, cancellationToken);
-                    }
-
-                    return newMessage;
-                }*/
 
         [Authorize]
         [UseDbContext(typeof(ApiDbContext))]
