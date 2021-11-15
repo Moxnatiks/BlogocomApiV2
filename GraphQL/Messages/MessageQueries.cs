@@ -16,11 +16,12 @@ namespace BlogocomApiV2.GraphQL.Messages
     {
         //[UsePaging]
         [Authorize]
-        [UseDbContext(typeof(ApiDbContext))]
+        //[UseDbContext(typeof(ApiDbContext))]
         [GraphQLDescription("Get messages by chatId")]
         public IQueryable<Message> GetMessages(
             long chatId,
-            [ScopedService] ApiDbContext DB,
+            //[ScopedService] ApiDbContext DB,
+            [Service] ApiDbContext DB,
             [Service] UserService _userService,
             [Service] IChat _chatRepository )
         {
