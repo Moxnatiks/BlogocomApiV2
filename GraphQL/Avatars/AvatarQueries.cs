@@ -18,7 +18,7 @@ namespace BlogocomApiV2.GraphQL.Avatars
         [Authorize]
         [UseDbContext(typeof(ApiDbContext))]
         [GraphQLDescription("Get last avatars by user Id")]
-        public Models.File GetAvatars (
+        public Models.File GetLastAvatarByIdUser (
             long userId,
             [ScopedService] ApiDbContext DB
             )
@@ -28,7 +28,7 @@ namespace BlogocomApiV2.GraphQL.Avatars
             IEnumerable<long> ids = DB.UserChats.Where(i => i.UserId == userId).Select(c => c.ChatId).ToArray();
             return DB.Chats.AsQueryable().Where(d => ids.Contains(d.Id));*/
 
-            IEnumerable<long> ids = DB.UserAvatars.Where(i => i.UserId == userId).Select(d => d.UserId).ToArray();
+            IEnumerable<long> ids = DB.UserAvatars.Where(i => i.UserId == userId).Select(d => d.PictureId).ToArray();
             return DB.Files.AsQueryable().Where(i => ids.Contains(i.Id)).OrderByDescending(d => d.CreatedDate).FirstOrDefault();
         }
 
