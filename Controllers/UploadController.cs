@@ -41,8 +41,8 @@ namespace BlogocomApiV2.Controllers
                 Models.File? pic = await WritePictureSqueezeFile(file);
                 if (pic != null)
                 {
-                    //DB.Files.Add(pic);
-                    //DB.SaveChanges();
+                    DB.Files.Add(pic);
+                    DB.SaveChanges();
                     return Ok(pic);
                 }
                 else return BadRequest(new { message = "Error while loading!" });
@@ -145,8 +145,8 @@ namespace BlogocomApiV2.Controllers
                 Models.File? pic = await WriteOriginalFile(file);
                 if (pic != null)
                 {
-                    //DB.Files.Add(pic);
-                    //DB.SaveChanges();
+                    DB.Files.Add(pic);
+                    DB.SaveChanges();
                     return Ok(pic);
                 }
                 else return BadRequest(new { message = "Error while loading!" });
@@ -226,8 +226,8 @@ namespace BlogocomApiV2.Controllers
                 Models.File? video = await WriteVideoOriginalFile(file);
                 if (video != null)
                 {
-                    //DB.Files.Add(video);
-                    //await DB.SaveChangesAsync(cancellationToken);
+                    DB.Files.Add(video);
+                    await DB.SaveChangesAsync(cancellationToken);
                     return Ok(video);
                 }
                 else return BadRequest(new { message = "Error while loading!" });
