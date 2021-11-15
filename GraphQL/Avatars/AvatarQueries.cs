@@ -23,7 +23,13 @@ namespace BlogocomApiV2.GraphQL.Avatars
             [ScopedService] ApiDbContext DB
             )
         {
-            return DB.Files.Where(i => i.Id == userId).OrderByDescending(d => d.CreatedDate).FirstOrDefault();
+
+            /*long userId = _userService.GetUserId();
+            IEnumerable<long> ids = DB.UserChats.Where(i => i.UserId == userId).Select(c => c.ChatId).ToArray();
+            return DB.Chats.AsQueryable().Where(d => ids.Contains(d.Id));*/
+
+            IEnumerable<long> ids = DB.UserAvatars.Where(i => i.UserId == userId).Select(d => d.UserId).ToArray();
+            return DB.Files.AsQueryable().Where(i => ids.Contains(i.Id)).OrderByDescending(d => d.CreatedDate).FirstOrDefault();
         }
 
     }

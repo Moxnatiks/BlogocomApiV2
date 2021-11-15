@@ -26,7 +26,6 @@ namespace BlogocomApiV2.GraphQL.Messages
         {
             if (_chatRepository.CheckUserAccessToChat(_userService.GetUserId(), chatId))
             {
-                var nnn = DB.Messages.Where(c => c.ChatId == chatId).OrderByDescending(c => c.CreatedDate);
                 return DB.Messages.Where(c => c.ChatId == chatId).OrderByDescending(c => c.CreatedDate);
             }
             else throw new ArgumentException("NO access!!!");
