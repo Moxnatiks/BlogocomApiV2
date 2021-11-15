@@ -1,3 +1,4 @@
+using BlogocomApiV2.GraphQL.Avatars;
 using BlogocomApiV2.GraphQL.Chats;
 using BlogocomApiV2.GraphQL.Messages;
 using BlogocomApiV2.GraphQL.UserChats;
@@ -74,6 +75,7 @@ namespace BlogocomApiV2
                     .AddTypeExtension<UserQueries>()
                     .AddTypeExtension<MessageQueries>()
                     .AddTypeExtension<ChatQueries>()
+                    .AddTypeExtension<AvatarQueries>()
                 .AddMutationType(m => m.Name("Mutation"))
                     .AddTypeExtension<UserMutations>()
                     .AddTypeExtension<ChatMutations>()

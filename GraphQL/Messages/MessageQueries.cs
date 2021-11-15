@@ -16,17 +16,17 @@ namespace BlogocomApiV2.GraphQL.Messages
     {
         //[UsePaging]
         [Authorize]
-        //[UseDbContext(typeof(ApiDbContext))]
+        [UseDbContext(typeof(ApiDbContext))]
         [GraphQLDescription("Get messages by chatId")]
         public IQueryable<Message> GetMessages(
             long chatId,
-            //[ScopedService] ApiDbContext DB,
-            [Service] ApiDbContext DB,
+            [ScopedService] ApiDbContext DB,
             [Service] UserService _userService,
             [Service] IChat _chatRepository )
         {
             if (_chatRepository.CheckUserAccessToChat(_userService.GetUserId(), chatId))
             {
+                var nnn = DB.Messages.Where(c => c.ChatId == chatId).OrderByDescending(c => c.CreatedDate);
                 return DB.Messages.Where(c => c.ChatId == chatId).OrderByDescending(c => c.CreatedDate);
             }
             else throw new ArgumentException("NO access!!!");
